@@ -4,7 +4,6 @@
 
 void inicializarLectura(std::ifstream&& stream);
 std::string siguienteLinea();
-bool esFinDeArchivo();
 void cerrarLectura();
 
 int main(int argc, char *argv[]){
@@ -27,6 +26,8 @@ int main(int argc, char *argv[]){
     std::cout << "Archivo" << argv[1] << "abierto correctamente" << std::endl;
 
     inicializarLectura(std::move(archivo));
+
+    cerrarLectura();
     
     return 0;
 }

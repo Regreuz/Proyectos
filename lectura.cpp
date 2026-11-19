@@ -58,7 +58,7 @@ int lineasLeidas(){
 }
 
 //Para cerrar el archivo y liberar recursos
-void cerraLectura(){
+void cerrarLectura(){
     if (archivoFuente.is_open()){
         archivoFuente.close();
     }

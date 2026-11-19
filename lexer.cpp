@@ -10,7 +10,7 @@
 typedef enum {
     TOKEN_MNEMONICO,
     TOKEN_REGISTRO,
-    TOKEN_IDENITIFICADOR,
+    TOKEN_IDENTIFICADOR,
     TOKEN_NUMERO,
     TOKEN_COMA,
     TOKEN_CORCHETE_ABRE,
@@ -81,7 +81,6 @@ static bool esCorcheteCierra(char c){
 
 
 //Calsificacion de la palabra
-
 static TipoToken clasificacionPalabra(const std::string& lex){
     
     //Verificar si es un mnemonico
@@ -117,7 +116,7 @@ static TipoToken clasificacionPalabra(const std::string& lex){
 
     //Verificar si es un identificador
     if (std::regex_match(lex, RE_IDENTIFICADOR)){
-        return TOKEN_IDENITIFICADOR;
+        return TOKEN_IDENTIFICADOR;
     }
 
     //Si no coincide con ningun tipo conocido, es desconocido
