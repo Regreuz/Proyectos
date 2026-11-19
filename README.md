@@ -11,3 +11,20 @@ El flujo de manera sencilla sería algo tal que:
    2. Lectura.cpp guarda el ifstream en 'ArchivoFuente'
    3. Cada llamada a la siguiente línea hace un std::getLine()
    4. Avanza el curso del stream hacía adelante, por lo que solo hay una lectura.
+
+
+Para compilar los tres archivos podríamos hacer el siguiente procedimiento.
+
+Tenemos los tres archivos:
+
+abrir.cpp
+lectura.cpp
+lexer.cpp
+
+para compilarlos juntos debería funcionar con g++ abrir.cpp lectura.cpp lexer.cpp -o ensamblador
+
+y para ejecutar
+
+./ensamblador Prueba.asm
+
+Prueba.asm es el archivo que utilizaremos de prueba para ver si funciona.
