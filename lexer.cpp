@@ -20,7 +20,8 @@ typedef enum {
     TOKEN_COMENTARIO, 
     TOKEN_FIN_LINEA,
     TOKEN_FIN_ARCHIVO,
-    TOKEN_DESCONOCIDO
+    TOKEN_DESCONOCIDO,
+    TOKEN_DOS_PUNTOS
 } TipoToken;
 
 //Estructura del token
@@ -149,6 +150,12 @@ static void tokenizarLinea(const std::string& linea, size_t numeroLinea, std::ve
             salida.push_back(t);
             i = n;
             break;
+        }
+
+        if (c == ':'){
+            salida.push_back({TOKEN_DOS_PUNTOS, std::string(1, c), numeroLinea, i + 1});
+            i++;
+            continue;    
         }
 
         //Delimitadores
