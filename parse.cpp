@@ -36,9 +36,9 @@ typedef struct {
 Token siguienteToken();
 void imprimirToken(const Token& t);
 const char* nombreTipoToken(TipoToken t);
+int tamR(const std::string& reg_in);
 
 //Estructuras del parser
-
 typedef enum {
     OP_REGISTRO,
     OP_INMEDIATO,
@@ -57,32 +57,6 @@ typedef struct{
     std::vector<Operando> operandos;
     size_t numeroLinea;
 } Instruccion;
-
-//Transformar todo a mayusculas para evitar que funciones solo para un caso
-
-static std::string Mayusculas(const std::string& s){
-    std::string r = s;
-    for (char& c : r) c = (char)std::toupper((unsigned char)c);
-    return r;
-}
-
-//Tamanio de los registros, cuantos bits
-
-int tamR(const std::string& reg_in){
-    const std::string reg = Mayusculas(reg_in);
-
-    if (reg == "AL" || reg == "AH" || reg == "BL" || reg == "BH" ||
-        reg == "CL" || reg == "CH" || reg == "DL" || reg == "DH"){
-            return 8;
-        }
-
-    if (reg == "AX" || reg == "BX" || reg == "CX" || reg == "DX" ||
-        reg == "SI" || reg == "DI" || reg == "SP" || reg == "BP"){
-            return 16;
-        }
-    
-    return 32;
-}
 
 //Cantidad de operandos por mnemonicos
 int cantidadOperandos(const std::string& mnemonico){
@@ -248,7 +222,6 @@ bool parsearLinea(const std::vector<Token>& tokens, Instruccion* instrSalida, st
 }
 
 //Parser que exige tokens al lexer
-
 bool parsearArchivo(std::vector<Instruccion>& instrucciones){
 
     bool ok = true;

@@ -21,7 +21,6 @@ typedef enum {
     TOKEN_FIN_LINEA,
     TOKEN_FIN_ARCHIVO,
     TOKEN_DESCONOCIDO,
-    TOKEN_DOS_PUNTOS
 } TipoToken;
 
 //Estructura del token
@@ -36,13 +35,38 @@ typedef struct {
 std::string siguienteLinea();
 bool esFinDeArchivo(const std::string& linea);
 int lineasLeidas();
+//Tamanio de los registros, cuantos bits
+
+int tamR(const std::string& reg_in){
+    const std::string reg = Mayusculas(reg_in);
+
+    if (reg == "AL" || reg == "AH" || reg == "BL" || reg == "BH" ||
+        reg == "CL" || reg == "CH" || reg == "DL" || reg == "DH"){
+            return 8;
+        }
+
+    if (reg == "AX" || reg == "BX" || reg == "CX" || reg == "DX" ||
+        reg == "SI" || reg == "DI" || reg == "SP" || reg == "BP"){
+            return 16;
+        }
+    
+    return 32;
+}
+
+//Transformar todo a mayusculas para evitar que funciones solo para un caso
+
+static std::string Mayusculas(const std::string& s){
+    std::string r = s;
+    for (char& c : r) c = (char)std::toupper((unsigned char)c);
+    return r;
+}
 
 //Tablas con palabras reservadas
 static const std::vector<std::string> MNEMONICOS = {
     "MOV", "ADD", "SUB", "CMP", "JMP"
 };
 
-static const std::vector<std::string> REGISTROS = {
+static const std::vector<std::string> REGISTROS = { 
     "EAX", "EBX", "ECX", "EDX", "ESI", "EDI", "ESP", "EBP"
 };
 
@@ -150,12 +174,6 @@ static void tokenizarLinea(const std::string& linea, size_t numeroLinea, std::ve
             salida.push_back(t);
             i = n;
             break;
-        }
-
-        if (c == ':'){
-            salida.push_back({TOKEN_DOS_PUNTOS, std::string(1, c), numeroLinea, i + 1});
-            i++;
-            continue;    
         }
 
         //Delimitadores
@@ -270,5 +288,4 @@ Token siguienteToken(){
     indiceBuffer = 0;
     tokenizarLinea(linea, (size_t)lineasLeidas(), bufferTokens);
     return bufferTokens[indiceBuffer++];   
-
 }
